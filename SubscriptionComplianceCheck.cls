@@ -56,13 +56,14 @@ global class SubscriptionComplianceCheck implements Database.Batchable<sObject> 
             sub.Souscription_Conforme__c = true;
             sub.MissingInformations__c = '';
         } else {
-            MissingInformations__c = CONF_PUB;
+            sub.MissingInformations__c = CONF_PUB + ' : date de fin effective est inférieure à la date du jour';
         }
         return sub;
     } 
     
 
     private SBQQ__Subscription__c setConformiteImmoNeuf(SBQQ__Subscription__c sub) {
+		String fieldsError = IMMO_NEUF + ' : ';
         if(sub.PromoterDescription__c != null 
             && sub.FlowType__c != null 
             && sub.ProductWorkflow__c != null
@@ -80,7 +81,21 @@ global class SubscriptionComplianceCheck implements Database.Batchable<sObject> 
             sub.Souscription_Conforme__c = true;
             sub.MissingInformations__c = '';
         } else {
-            MissingInformations__c = IMMO_NEUF;
+			fieldsError += PromoterDescription__c != null ? '' : ' PromoterDescription__c';
+			fieldsError += FlowType__c != null ? '' : ' FlowType__c';
+			fieldsError += ProductWorkflow__c != null ? '' : ' ProductWorkflow__c';
+			fieldsError += ContractEmail__c != null ? '' : ' ContractEmail__c';
+			fieldsError += CompanySiret__c != null ? '' : ' CompanySiret__c';
+			fieldsError += CompanyName__c != null ? '' : ' CompanyName__c';
+			fieldsError += CompanyAddressStreet__c != null ? '' : ' CompanyAddressStreet__c';
+			fieldsError += CompanyAddressZipcode__c != null ? '' : ' CompanyAddressZipcode__c';
+			fieldsError += CompanyAddressCity__c != null ? '' : ' CompanyAddressCity__c';
+			fieldsError += CompanyPhone__c != null ? '' : ' CompanyPhone__c';
+			fieldsError += ContactGender__c != null ? '' : ' ContactGender__c';
+			fieldsError += ContactFirstName__c != null ? '' : ' ContactFirstName__c';
+			fieldsError += ContactLastName__c != null ? '' : ' ContactLastName__c';
+			fieldsError += LeadPhone__c != null ? '' : ' LeadPhone__c';
+            sub.MissingInformations__c = fieldsError;
         }
         return sub;
     }
