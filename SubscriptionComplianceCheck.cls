@@ -4,12 +4,12 @@ global class SubscriptionComplianceCheck implements Database.Batchable<sObject> 
     private static final String CONF_PUB = 'Conformité Pub';
     
     global List<SBQQ__Subscription__c> start(Database.BatchableContext cnx) { 
-         return [SELECT Id, CompanyAddressCity__c, OrderNumber__c, CompanyAddressCountry__c, CompanyPhone__c, ContactGender__c, ContactLastName__c, 
-                 ContactFirstName__c, Companyindustry__c, CompanyName__c, PrintVolume__c, BroadcastSoftware__c, PromoterDescription__c, SBQQ__RequiredById__c,
-                 FlowType__c, BroadcastPartner__c, PostalCode__c, Souscription_Conforme__c, ComplianceProcess__c, Status__c, AccessStoreState__c, 
-                 ProductWorkflow__c, AccessUserId__c, KilometerRadius__c, AccessStoreId__c, CompanyAddressStreet__c, CompanyAddressZipcode__c, LeadPhone__c,
-                 ContractEmail__c, CompanySegment__c, CompanySiret__c, EffectiveEndDate__c, MissingInformations__c
-                  FROM SBQQ__Subscription__c WHERE Status__c = :ELEMENTS_MANQUANTS
+         return [SELECT Id, CompanyAddressCity__c, CompanyPhone__c, ContactGender__c, ContactLastName__c, 
+                 ContactFirstName__c, CompanyName__c, PromoterDescription__c, SBQQ__RequiredById__c,
+                 FlowType__c, Souscription_Conforme__c, ComplianceProcess__c,  
+                 ProductWorkflow__c, CompanyAddressStreet__c, CompanyAddressZipcode__c, LeadPhone__c,
+                 ContractEmail__c, CompanySiret__c, EffectiveEndDate__c
+                 FROM SBQQ__Subscription__c WHERE Status__c = :ELEMENTS_MANQUANTS
                  AND Souscription_Conforme__c = false];
     }
     
